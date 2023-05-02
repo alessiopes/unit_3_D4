@@ -1,0 +1,660 @@
+<!--? CREA UN SITO WEB PER UN'AGENZIA DI VIAGGI -->
+<!--* Utilizzando bootstrap 4.6 per un'agenzia di viaggi -->
+
+<!-- 1. Sviluppa una navbar. Collega ogni sezione della pagina agli elementi del menu: #offerta-della-settimana, #welcome-summer, #offerta-del-giorno (che è invisibile in mobile), #last-minute, #testimonials, #footer -->
+
+<!-- 2. Aggiungi logo alla navbar. -->
+
+<!-- 3. Aggiungi sezione jumbotron con il nome e il payoff dell'agenzia. -->
+
+<!-- 4. Sviluppa una sezione Offerta della Settiana, con 4 sezioni: (per ogni riga) 4 card per schermo grande, 3 card per schermo medio (tablet) e 2 card per schermo piccolo (mobile). -->
+
+<!-- 5. Sviluppa una sezione Welcome Summer, con 6 destinazioni: (per ogni riga) 6 card per schermo grande, 3 card per schermo medio (tablet) e 2 card per schermo piccolo (mobile). -->
+
+<!-- 6. Svilupppa una sezione Offerta del Giorno: (della riga) 66% spazio per immagine del luogo di destinazione e 33% per nome, date, prezzo e breve descrizione del luogo. -->
+
+<!-- 7. Rendi invisibile su mobile la sezione Offerta del Giorno. -->
+
+<!-- 8. Aggiungi alla sezione Welcome Summer un'ombra ogni card. -->
+
+<!-- 9. Sviluppa una sezione Last Minute con immagini delle destinazioni last minute sottoforma di card. -->
+
+<!-- 10. Sviluppa una sezione Testimonials con alcuni feedback di utenti fittizi. -->
+
+<!-- 11. Sviluppa un footer con info dell'agenzia e bottone Contattaci. -->
+
+<!--? EXTRA -->
+
+<!-- 12. Crea un bottone accanto ad ogni sezione per collassarla e riaprirla se premuto. -->
+
+<!-- 13. Inserisci un counter del numero di viaggi presenti nella pagina. -->
+
+<!-- 14. Crea un modale con un messaggio e un campo email. -->
+
+<!-- 15. Quando l'utente cliccherà su Contattaci, fai in modo che il modale venga visualizzato. -->
+
+<!-- 16. Crea un funzione che rimuova tutte le card della pagina. -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+
+    <link rel="icon" type="image/png" href="assets/logo-travel-agency.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Comfortaa&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Viaggiando nel Mondo</title>
+
+    <!-- Includo jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Includo plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/smooth-scroll/dist/smooth-scroll.min.js"></script>
+  </head>
+  <style>
+    /* Per schermi piccoli, gli item dei testimonial sono allineati al centro */
+    @media (max-width: 767.98px) {
+      .card-text-center {
+        text-align: center;
+      }
+    }
+
+    .navbar-brand-img {
+      height: 28px;
+      margin-right: 10px;
+    }
+
+    .brand-text {
+      font-family: "Comfortaa", cursive;
+    }
+
+    #offerta-della-settimana .card-img-top,
+    #welcome-summer .card-img-top,
+    #last-minute img {
+      height: 180px;
+      object-fit: cover;
+    }
+    @media (max-width: 767.98px) {
+      #offerta-della-settimana .card-img-top,
+      #welcome-summer .card-img-top,
+      #last-minute img {
+        height: 250px;
+      }
+    }
+
+    /* Nasconde il contenuto di tutte le sezioni */
+    .section-content {
+      display: block;
+    }
+
+    /* Stile del pulsante "collapse" */
+    .collapse-btn {
+      background-color: #4caf50;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+          <img
+            src="assets/logo-travel-agency.png"
+            alt="Logo della tua azienda"
+            class="navbar-brand-img"
+          />
+          <span class="brand-tex py-auto">TRAVELLOVE</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#offerta-della-settimana" data-scroll
+                >Offerta della Settimana</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#welcome-summer" data-scroll
+                >Welcome Summer</a
+              >
+            </li>
+            <li class="nav-item d-none d-sm-block">
+              <a class="nav-link" href="#offerta-del-giorno" data-scroll
+                >Offerta del Giorno</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#last-minute" data-scroll
+                >Last Minute</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#testimonials" data-scroll
+                >Testimonials</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#footer" data-scroll>Contattaci</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container mt-5">
+        <h1 class="display-4">Viaggiando nel Mondo</h1>
+        <p class="lead">Esplora il mondo con noi</p>
+      </div>
+    </div>
+
+    <!-- Offerta della Settiana -->
+    <button
+      class="container-fluid collapse-btn my-4"
+      onclick="toggleSection(event)"
+    >
+      Collapse Section
+    </button>
+    <div class="section-content">
+      <div id="offerta-della-settimana" class="container my-5">
+        <h2 class="text-center mb-4">Offerta della Settimana</h2>
+        <div class="row">
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card travel-item">
+              <img
+                src="assets/maldive.jpeg"
+                class="card-img-top"
+                alt="Offerta 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Vacanza invernale alle Maldive</h5>
+                <p class="card-text">
+                  Soggiorna 7 notti in un resort a 5 stelle e scopri il paradiso
+                  delle Maldive con la sua bellissima barriera corallina e il
+                  mare cristallino.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri di più</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card travel-item">
+              <img
+                src="assets/paris-romantic.jpeg"
+                class="card-img-top"
+                alt="Offerta 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Weekend romantico a Parigi</h5>
+                <p class="card-text">
+                  Trascorri un weekend indimenticabile nella città dell'amore.
+                  Passeggia lungo la Senna, visita la Torre Eiffel e gusta la
+                  cucina francese.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri di più</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card travel-item">
+              <img
+                src="assets/thailand.webp"
+                class="card-img-top"
+                alt="Offerta 3"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Viaggio alla scoperta della Thailandia
+                </h5>
+                <p class="card-text">
+                  Esplora la Thailandia in un viaggio di 10 giorni. Visita
+                  Bangkok, Chiang Mai e Phuket, e scopri la bellezza del paese.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri di più</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="card travel-item">
+              <img
+                src="assets/caraibi.jpeg"
+                class="card-img-top"
+                alt="Offerta 4"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Crociere ai Caraibi</h5>
+                <p class="card-text">
+                  Naviga verso le acque cristalline dei Caraibi in una crociera
+                  indimenticabile. Scegli tra le diverse opzioni di itinerari e
+                  scopri le isole più belle della regione.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri di più</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="container bg-light my-4" />
+    </div>
+
+    <!-- Welcome Summer -->
+    <button
+      class="container-fluid collapse-btn my-4"
+      onclick="toggleSection(event)"
+    >
+      Collapse Section
+    </button>
+    <div class="section-name">
+      <div id="welcome-summer" class="container my-5">
+        <h2 class="text-center mb-4">Welcome Summer</h2>
+        <div class="row">
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/ibiza.jpeg"
+                class="card-img-top"
+                alt="Destination 1"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Ibiza, Spagna</h5>
+                <p class="card-text">
+                  Feste in spiaggia, buona musica e club famosi.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/Santorini.webp"
+                class="card-img-top"
+                alt="Destination 2"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Santorini, Grecia</h5>
+                <p class="card-text">
+                  Spiagge di sabbia nera e bianca, vista mozzafiato.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/cancun.jpeg"
+                class="card-img-top"
+                alt="Destination 3"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Cancun, Messico</h5>
+                <p class="card-text">
+                  Spiagge di sabbia bianca, vita notturna e cultura maya.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/costa-rica.jpeg"
+                class="card-img-top"
+                alt="Destination 4"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Costa Rica</h5>
+                <p class="card-text">
+                  Natura lussureggiante, fauna esotica, avventura all'aperto.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/amalfi.webp"
+                class="card-img-top"
+                alt="Destination 5"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Amalfi, Italia</h5>
+                <p class="card-text">
+                  Spiagge rocciose, pesce fresco e panorami mozzafiato.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 col-sm-6 mb-4">
+            <div class="card travel-item shadow">
+              <img
+                src="assets/sydney.jpeg"
+                class="card-img-top"
+                alt="Destination 6"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Sydney, Australia</h5>
+                <p class="card-text">
+                  Spiagge famose, caffè trendy e cultura cosmopolita.
+                </p>
+                <a href="#" class="btn btn-primary">Scopri</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="container bg-light my-4" />
+    </div>
+
+    <!-- Offerta del giorno -->
+    <div id="offerta-del-giorno" class="container my-5 d-none d-sm-block">
+      <h2 class="text-center mb-4">Offerta del Giorno</h2>
+      <div class="row">
+        <div class="col-lg-8">
+          <img src="assets/cancun.jpeg" class="img-fluid" alt="Destination" />
+        </div>
+        <div class="col-lg-4">
+          <div class="card travel-item">
+            <div class="card-body">
+              <h5 class="card-title">Nome Destinazione</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Date</h6>
+              <p class="card-text">Breve descrizione del luogo</p>
+              <p class="card-text">Prezzo: $XXX</p>
+              <a href="#" class="btn btn-primary">Prenota ora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="container bg-light my-4 d-none d-sm-block" />
+
+    <!-- Last Minute -->
+    <div id="last-minute" class="container my-5">
+      <h2 class="text-center mb-5">Last Minute</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card travel-item">
+            <img
+              class="card-img-top"
+              src="assets/bali.jpeg"
+              alt="Destinazione 1"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Bali, Indonesia</h5>
+              <p class="card-text">
+                Spiagge da sogno, cultura e spiritualità uniche.
+              </p>
+              <a href="#" class="btn btn-primary">Prenota ora</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card travel-item">
+            <img
+              class="card-img-top"
+              src="assets/lisbona.jpeg"
+              alt="Destinazione 2"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Lisbona, Portogallo</h5>
+              <p class="card-text">
+                Città colorata e vivace, con cibo delizioso.
+              </p>
+              <a href="#" class="btn btn-primary">Prenota ora</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card travel-item">
+            <img
+              class="card-img-top"
+              src="assets/citta-del-messico.jpeg"
+              alt="Destinazione 3"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Città del Messico, Messico</h5>
+              <p class="card-text">
+                Arte e cultura azteca, cucina piccante e vivace.
+              </p>
+              <a href="#" class="btn btn-primary">Prenota ora</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="container bg-light my-4" />
+
+    <!-- Testimonials -->
+    <div id="testimonials" class="container my-5">
+      <h2 class="text-center mb-5">Cosa dicono i nostri clienti</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-item card-text-center">
+            <div class="testimonial-img">
+              <img
+                class="m-3 rounded-circle"
+                src="https://via.placeholder.com/150x150"
+                alt="testimonial image"
+              />
+            </div>
+            <div class="testimonial-text">
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                eu lectus vel ex luctus egestas. Aliquam erat volutpat. Donec
+                nec venenatis quam.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <h5>John Doe</h5>
+              <p>Cliente soddisfatto</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-item card-text-center">
+            <div class="testimonial-img">
+              <img
+                class="m-3 rounded-circle"
+                src="https://via.placeholder.com/150x150"
+                alt="testimonial image"
+              />
+            </div>
+            <div class="testimonial-text">
+              <p>
+                Nulla eu lectus vel ex luctus egestas. Aliquam erat volutpat.
+                Donec nec venenatis quam. Lorem ipsum dolor sit amet,
+                consectetur adipiscing elit.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <h5>Jane Doe</h5>
+              <p>Cliente felice</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="testimonial-item card-text-center">
+            <div class="testimonial-img">
+              <img
+                class="m-3 rounded-circle"
+                src="https://via.placeholder.com/150x150"
+                alt="testimonial image"
+              />
+            </div>
+            <div class="testimonial-text">
+              <p>
+                Aliquam erat volutpat. Donec nec venenatis quam. Lorem ipsum
+                dolor sit amet, consectetur adipiscing elit. Nulla eu lectus vel
+                ex luctus egestas.
+              </p>
+            </div>
+            <div class="testimonial-author">
+              <h5>Bob Smith</h5>
+              <p>Cliente entusiasta</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="container-fluid bg-light pt-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-6 col-12 pt-4">
+            <h4 class="mb-1">Contattaci</h4>
+            <ul class="list-unstyled">
+              <li>
+                <i class="fas fa-map-marker-alt"></i> Via Roma, 123 - 00100 Roma
+              </li>
+              <li><i class="fas fa-phone"></i> +39 06 1234567</li>
+              <li><i class="fas fa-envelope"></i> info@agenziaviaggi.com</li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-sm-6 col-12 pt-4">
+            <h4 class="mb-1">Link Utili</h4>
+            <ul class="list-unstyled">
+              <li><a href="#">Termini e condizioni</a></li>
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="col-md-4 col-sm-12 col-12 pt-4">
+            <h4 class="mb-1">Seguici sui social</h4>
+            <ul class="list-unstyled">
+              <li>
+                <a href="#"><i class="fab fa-facebook-f"></i> Facebook</a>
+              </li>
+              <li>
+                <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+              </li>
+              <li>
+                <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="container">
+          <!-- Bottone per aprire il modale -->
+          <div class="mt-4 text-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#contact-modal"
+            >
+              Contattaci
+            </button>
+          </div>
+          <!-- Modale con il messaggio e il campo email -->
+          <div class="modal" id="contact-modal">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Contattaci</h5>
+                  <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>Inserisci la tua email per contattarci:</p>
+                  <form>
+                    <div class="form-group">
+                      <label for="email-input">Email:</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        id="email-input"
+                        placeholder="Inserisci la tua email"
+                      />
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-dismiss="modal"
+                  >
+                    Chiudi
+                  </button>
+                  <button type="button" class="btn btn-primary">Invia</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="col-md-12 text-center">
+            <p>&copy; 2023 Agenzia Viaggi. Tutti i diritti riservati.</p>
+            <p>
+              Numero di Viaggi presenti in pagina: <span id="counter"></span>
+            </p>
+            <div class="custom-control custom-switch">
+              <input class="custom-control-input" type="checkbox" id="remove-cards-toggle" onchange="removeCards()">
+              <label class="custom-control-label" for="remove-cards-toggle">Nascondi tutte le card</label>
+            </div>   
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      var scroll = new SmoothScroll('a[href*="#"]', {
+        speed: 500, // Velocità di scorrimento
+        offset: 80, // Offset dal bordo superiore della finestra del browser
+      });
+    </script>
+
+    <script src="script.js"></script>
+  </body>
+</html>
